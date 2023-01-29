@@ -206,9 +206,9 @@ object:			$(D_OBJ)/.created
 .PHONY:		installinc
 installinc:		../include/.created
 		@echo publishing headers ...
-		-cp $(SSH2INCLUDE)/libssh2.h ../include
-		-cp $(SSH2INCLUDE)/libssh2_Sftp.h ../include
-		-cp libssh2_helper.h ../include
+		cp -f $(SSH2INCLUDE)/libssh2.h ../include
+		cp -f $(SSH2INCLUDE)/libssh2_Sftp.h ../include
+		cp -f libssh2_helper.h ../include
 
 %/.created:
 		-@mkdir $(@D)
@@ -216,10 +216,10 @@ installinc:		../include/.created
 
 clean:
 		@echo $(BUILD_TYPE) clean
-		-@$(LIBTOOL) --mode=clean $(RM) $(DLLS) $(DLLOBJS)
-		-@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN)
-		-@$(RM) $(LIBOBJS)
-		-@$(RM) ../include/libssh2/*.h
+		-@$(LIBTOOL) --mode=clean $(RM) $(RMFLAGS) $(DLLS) $(DLLOBJS)
+		@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN)
+		@$(RM) $(RMFLAGS) $(LIBOBJS)
+		@$(RM) $(RMFLAGS) ../include/libssh2/*.h
 
 $(D_OBJ)/%$(O):		%.c
 		$(CC) $(CFLAGS) -o $@ -c $<

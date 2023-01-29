@@ -300,8 +300,8 @@ object:			$(D_OBJ)/.created
 .PHONY:		installinc
 installinc:		../include/.created ../include/mbedtls/.created
 		@echo publishing headers ...
-		-cp $(MBEDINCLUDE)/mbedtls/*.h ../include/mbedtls
-		-cp ./win32/*.h ../include/mbedtls
+		cp -f $(MBEDINCLUDE)/mbedtls/*.h ../include/mbedtls
+		cp -f ./win32/*.h ../include/mbedtls
 
 %/.created:
 		-@mkdir $(@D)
@@ -309,10 +309,10 @@ installinc:		../include/.created ../include/mbedtls/.created
 
 clean:
 		@echo $(BUILD_TYPE) clean
-		-@$(LIBTOOL) --mode=clean $(RM) $(DLLS) $(DLLOBJS)
-		-@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN)
-		-@$(RM) $(LIBOBJS)
-		-@$(RM) ../include/mbedtls/*
+		-@$(LIBTOOL) --mode=clean $(RM) $(RMFLAGS) $(DLLS) $(DLLOBJS)
+		@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN)
+		@$(RM) $(RMFLAGS) $(LIBOBJS)
+		@$(RM) $(RMFLAGS) ../include/mbedtls/*
 
 $(D_OBJ)/%$(O):		%.c
 		$(CC) $(CFLAGS) -o $@ -c $<

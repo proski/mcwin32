@@ -205,8 +205,8 @@ object:			$(D_OBJ)/.created
 .PHONY:		installinc
 installinc:		../include/.created
 		@echo publishing headers ...
-		-cp $(ZSRC)/zlib.h ../include
-		-cp $(ZSRC)/zconf.h ../include
+		cp -f $(ZSRC)/zlib.h ../include
+		cp -f $(ZSRC)/zconf.h ../include
 
 %/.created:
 		-@mkdir $(@D)
@@ -214,9 +214,9 @@ installinc:		../include/.created
 
 clean:
 		@echo $(BUILD_TYPE) clean
-		-@$(LIBTOOL) --mode=clean $(RM) $(ZDLL) $(DLLOBJS)
-		-@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN)
-		-@$(RM) $(LIBOBJS)
+		-@$(LIBTOOL) --mode=clean $(RM) $(RMFLAGS) $(ZDLL) $(DLLOBJS)
+		@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN)
+		@$(RM) $(RMFLAGS) $(LIBOBJS)
 
 $(D_OBJ)/%$(O):		%.c
 		$(CC) $(CFLAGS) -o $@ -c $<

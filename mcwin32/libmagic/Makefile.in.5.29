@@ -70,6 +70,7 @@ LDLIBS=		-L$(D_LIB) $(D_LIB)/$(LP)regex$(A) @LIBS@ @LIBM@ @EXTRALIBS@
 
 ARFLAGS=	rcv
 RMFLAGS=	-f
+RMDFLAGS=	-rf
 
 
 ############################################################
@@ -154,7 +155,7 @@ debug:
 
 $(MAGICLIB):		CEXTRA += -D__LIBMAGIC_BUILD -DLIBMAGIC_STATIC
 $(MAGICLIB):		$(D_OBJ)/.created $(LIBOBJS)
-		$(RM) $(RMFLAGS) $@ >/dev/null 2>&1
+		$(RM) $(RMFLAGS) $@
 		$(AR) $(ARFLAGS) $@ $(LIBOBJS)
 		$(RANLIB) $@
 
@@ -168,15 +169,15 @@ $(MAGICUTIL):		$(UTILOBJS)
 
 $(MAGICDB):		magic.mgc
 		@echo publishing magicdb $(MAGICDB) ...
-		@cp magic.mgc $(MAGICDB)
+		@cp -f magic.mgc $(MAGICDB)
 
 magic.mgc:		MSRC=$(wildcard $(MAGDIR)/Magdir/*)
 magic.mgc:		$(MSRC) Makefile
-		@$(RM) -fr magic
+		@$(RM) $(RMDFLAGS) magic
 		-@mkdir magic
-		@cp $(MSRC) magic
+		@cp -f $(MSRC) magic
 		$(MAGICUTIL) -C -m magic
-		@$(RM) -fr magic
+		@$(RM) $(RMDFLAGS) magic
 
 source:			.unpacked.$(VERSION)
 		$(MAKE) unpacked
@@ -188,7 +189,7 @@ source:			.unpacked.$(VERSION)
 
 installinc:		../include/.created
 		@echo publishing headers 'magic.h' ...
-		@cp $(MAGICSRC)/magic.h ../include
+		@cp -f $(MAGICSRC)/magic.h ../include
 
 %/.created:
 		-@mkdir $(@D)
@@ -196,9 +197,9 @@ installinc:		../include/.created
 
 clean:
 		@echo $(BUILD_TYPE) clean
-		-@$(LIBTOOL) --mode=clean $(RM) $(MAGICDLL) $(DLLOBJS) >nul 2>&1
-		-@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(LIBS) $(CLEAN) $(XCLEAN) >nul 2>&1
-		-@$(RM) $(LIBOBJS) $(UTILOBJS) >nul 2>&1
+		-@$(LIBTOOL) --mode=clean $(RM) $(RMFLAGS) $(MAGICDLL) $(DLLOBJS)
+		@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(LIBS) $(CLEAN) $(XCLEAN)
+		@$(RM) $(RMFLAGS) $(LIBOBJS) $(UTILOBJS)
 
 $(D_OBJ)/%$(O):		%$(C)
 		$(CC) $(CFLAGS) -D_CRT_SECURE_NO_DEPRECATE -o $@ -c $<

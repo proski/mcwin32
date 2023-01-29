@@ -847,15 +847,15 @@ endif
 .PHONY:		package
 package:	packageinfo
 	$(INNO) ./releases/mc-inno-setup.iss
-	-$(RM) packageinfo.h
+	$(RM) $(RMFLAGS) packageinfo.h
 
 .PHONY:		clean
 clean:
 		@echo $(BUILD_TYPE) clean
-		-$(RM) $(RMFLAGS) $(TARGETS) $(LIBRARIES) $(CLEAN) $(XCLEAN)
-		-$(RM) $(RMFLAGS) $(OBJS) $(MC_RES) $(subst $(O),.mbr,$(OBJS) $(MC_RES))
-		-$(RM) $(RMFLAGS) $(MC_LIBMC) $(subst $(O),.mbr,$(MC_LIBMC)) $(LW)mcutil$(A)
-		-$(RM) $(RMFLAGS) $(MC_LIBVFS) $(subst $(O),.mbr,$(MC_LIBVFS)) $(LW)mcvfs$(A)
+		$(RM) $(RMFLAGS) $(TARGETS) $(LIBRARIES) $(CLEAN) $(XCLEAN)
+		$(RM) $(RMFLAGS) $(OBJS) $(MC_RES) $(subst $(O),.mbr,$(OBJS) $(MC_RES))
+		$(RM) $(RMFLAGS) $(MC_LIBMC) $(subst $(O),.mbr,$(MC_LIBMC)) $(LW)mcutil$(A)
+		$(RM) $(RMFLAGS) $(MC_LIBVFS) $(subst $(O),.mbr,$(MC_LIBVFS)) $(LW)mcvfs$(A)
 		$(MAKE) -C libglib clean
 		$(MAKE) -C libintl clean
 		$(MAKE) -C libmbedtls clean
@@ -865,16 +865,16 @@ clean:
 		$(MAKE) -C libz clean
 		$(MAKE) -C libw32 clean
 		$(MAKE) -C autoupdater clean
-		-$(RM) $(MSGOBJS) $(MSGDIRS)
-		-$(RM) $(CONFIGURATION)
-		-$(RM) $(CONFIGURATION_WIN32)
-		-$(RM) $(DIRECTORIES)
+		$(RM) $(RMFLAGS) $(MSGOBJS) $(MSGDIRS)
+		$(RM) $(RMFLAGS) $(CONFIGURATION)
+		$(RM) $(RMFLAGS) $(CONFIGURATION_WIN32)
+		$(RM) $(RMFLAGS) $(DIRECTORIES)
 		-$(RMDIR) $(call reverse, $(dir $(DIRECTORIES)) $(BASEMSGDIRS) $(dir $(MSGDIRS))))
 		-$(RMDIR) $(D_OBJ) $(D_LIB) $(D_BIN) $(D_ETC)
 
 .PHONY:		vclean
 vclean:		clean
-		-$(RM) $(IMPORT)
+		$(RM) $(RMFLAGS) $(IMPORT)
 
 
 #########################################################################################

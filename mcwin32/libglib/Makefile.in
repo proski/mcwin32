@@ -489,11 +489,11 @@ installheaders:		Makefile ../include/.created \
 
 clean:
 		@echo $(BUILD_TYPE) clean
-		-@$(LIBTOOL) --mode=clean $(RM) $(subst /,\,$(GLIBDLL) $(GLIBDLLOBJS))
-		-@$(LIBTOOL) --mode=clean $(RM) $(subst /,\,$(GMODULEDLL) $(GMODULEDLLOBJS))
-		-@$(RM) $(subst /,\,$(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN))
-		-@$(RM) $(subst /,\,$(GLIBLIBOBJS))
-		-@$(RM) $(subst /,\,$(GMODULELIBOBJS))
+		-@$(LIBTOOL) --mode=clean $(RM) $(RMFLAGS) $(subst /,\,$(GLIBDLL) $(GLIBDLLOBJS))
+		-@$(LIBTOOL) --mode=clean $(RM) $(RMFLAGS) $(subst /,\,$(GMODULEDLL) $(GMODULEDLLOBJS))
+		@$(RM) $(RMFLAGS) $(subst /,\,$(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(CLEAN) $(XCLEAN))
+		@$(RM) $(RMFLAGS) $(subst /,\,$(GLIBLIBOBJS))
+		@$(RM) $(RMFLAGS) $(subst /,\,$(GMODULELIBOBJS))
 
 
 ############################################################

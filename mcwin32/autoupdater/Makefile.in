@@ -205,16 +205,16 @@ $(SIGNATURETSK):	$(SIGNATUREOBJS)
 
 installinc:		include/.created
 		@echo publishing headers ...
-		-cp $(UPDATERSRC)/magic.h include
+		cp -f $(UPDATERSRC)/magic.h include
 		@echo publishing magicdb ...
-		-cp magic.mgc $(D_BIN)
+		cp -f magic.mgc $(D_BIN)
 
 %/.created:
 		-@mkdir $(@D)
 		@echo "do not delete, managed directory" > $@
 
 clean:
-		-@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(OBJS) $(CLEAN) $(XCLEAN)
+		@$(RM) $(RMFLAGS) $(BAK) $(TSKS) $(INSTALLED) $(LIBS) $(OBJS) $(CLEAN) $(XCLEAN)
 
 $(D_OBJ)/%$(O):		%.cpp
 		$(CC) $(CXXFLAGS) -o $@ -c $<
