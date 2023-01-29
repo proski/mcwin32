@@ -887,8 +887,10 @@ ifneq ($(APPVEYOR_BUILD_NUMBER),)
 BUILD_NUMBER=			$(APPVEYOR_BUILD_NUMBER)
 else ifneq ($(GITHUB_RUN_NUMBER),)
 BUILD_NUMBER=			$(GITHUB_RUN_NUMBER)
-else
+else ifneq ($(wildcard BUILDNUMBER),)
 BUILD_NUMBER=			$(shell $(BUSYBOX) cat BUILDNUMBER)
+else
+BUILD_NUMBER=			1
 endif
 
 .PHONY: 			buildinfo
