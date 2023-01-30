@@ -26,6 +26,10 @@
 # ==end==
 #
 
+ifeq ($(filter else-if,$(value .FEATURES)),)
+$(error GNU Make with support for "else" with condition is required)
+endif
+
 @SET_MAKE@
 
 PACKAGE		= mc
